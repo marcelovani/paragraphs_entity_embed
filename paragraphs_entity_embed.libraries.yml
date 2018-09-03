@@ -1,0 +1,6 @@
+dialog:
+  version: VERSION
+  js:
+    js/paragraphs_entity_embed.dialog.js: {}
+  dependencies:
+    - core/jquery
