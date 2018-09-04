@@ -49,12 +49,16 @@ class EmbedParagraphsWidget extends ParagraphsWidget {
   /**
    * Returns the sorted allowed types for a entity reference field.
    *
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *  (optional) The field definition for which the allowed types should be
+   *  returned, defaults to the current field.
+   *
    * @return array
    *   A list of arrays keyed by the paragraph type machine name with the following properties.
    *     - label: The label of the paragraph type.
    *     - weight: The weight of the paragraph type.
    */
-  public function getAllowedTypes() {
+  public function getAllowedTypes(FieldDefinitionInterface $field_definition = NULL) {
     $return_bundles = array();
     /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selection_manager */
     $selection_manager = \Drupal::service('plugin.manager.entity_reference_selection');
