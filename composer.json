@@ -14,9 +14,19 @@
   },  
   "authors": [
     {
+      "name": "Nikolay Ignatov",
+      "email": "nikolai.ignatov@gmail.com",
+      "role": "Creator and Maintainer"
+    },
+    {
       "name": "Dobrin Dobrev",
       "email": "ddobrev81@gmail.com",
-      "role": "Creator and Maintainer"
+      "role": "Maintainer"
+    },
+    {
+      "name": "Milka Petkova",
+      "email": "milka.petkova.88@gmail.com",
+      "role": "Maintainer"
     }
   ]
 }
