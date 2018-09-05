@@ -26,8 +26,8 @@
 
       // Generic command for adding/editing entities of all types.
       editor.addCommand('editdrupalparagraph', {
-        allowedContent: 'drupal-paragraph[!data-paragraph-id,data-embed-button,data-entity-label]',
-        requiredContent: 'drupal-paragraph[data-paragraph-id]',
+        allowedContent: 'drupal-paragraph[!data-paragraph-id,!data-embed-button,data-entity-label]',
+        requiredContent: 'drupal-paragraph[data-paragraph-id,data-embed-button]',
         modes: {wysiwyg: 1},
         canUndo: true,
         exec: function (editor, data) {
@@ -84,8 +84,8 @@
 
       // Register the Paragraph embed widget.
       editor.widgets.add('drupalparagraph', {
-        allowedContent: 'drupal-paragraph[!data-paragraph-id,data-embed-button,data-entity-label]',
-        requiredContent: 'drupal-paragraph[data-paragraph-id]',
+        allowedContent: 'drupal-paragraph[!data-paragraph-id,!data-embed-button,data-entity-label]',
+        requiredContent: 'drupal-paragraph[data-paragraph-id,data-embed-button]',
         // Simply recognize the element as our own. The inner markup if fetched
         // and inserted the init() callback, since it requires the actual DOM
         // element.
@@ -136,7 +136,7 @@
           editor.ui.addButton(button.id, {
             label: button.label,
             data: button,
-            allowedContent: 'drupal-paragraph[!data-paragraph-id]',
+            allowedContent: 'drupal-paragraph[!data-paragraph-id,!data-embed-button]',
             click: function (editor) {
               editor.execCommand('editdrupalparagraph', this.data);
             },
