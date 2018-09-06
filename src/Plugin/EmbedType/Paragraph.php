@@ -6,8 +6,7 @@ use Drupal\embed\EmbedType\EmbedTypeBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\paragraphs\Entity\ParagraphsType;
-use Drupal\Core\Entity\EntityTypeBundleInfo;
+
 /**
  * Paragraph embed type.
  *
@@ -27,7 +26,7 @@ class Paragraph extends EmbedTypeBase implements ContainerFactoryPluginInterface
     );
   }
 
-   /**
+  /**
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
@@ -36,17 +35,19 @@ class Paragraph extends EmbedTypeBase implements ContainerFactoryPluginInterface
       'paragraphs_type_filter' => [],
     ];
   }
+
   /**
    * {@inheritdoc}
    */
   public function getDefaultIconUrl() {
     return file_create_url(drupal_get_path('module', 'paragraphs_entity_embed') . '/js/plugins/drupalparagraph/paragraph.png');
   }
- /**
+
+  /**
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    
+
     $form['enable_paragraph_type_filter'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Filter which Paragraph types to be embed'),
@@ -65,7 +66,7 @@ class Paragraph extends EmbedTypeBase implements ContainerFactoryPluginInterface
     return $form;
   }
 
-    /**
+  /**
    * Methods get all paragraph types as options list.
    */
   protected function getAllParagraphTypes() {
@@ -90,4 +91,5 @@ class Paragraph extends EmbedTypeBase implements ContainerFactoryPluginInterface
 
     }
   }
+
 }

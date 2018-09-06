@@ -91,7 +91,7 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
       // Hide all the default form fields.
       $hidden_fields = [
         'paragraph',
-        'label'
+        'label',
       ];
       foreach ($hidden_fields as $hidden_field) {
         if (isset($form[$hidden_field])) {
@@ -132,7 +132,7 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
         'autocomplete' => [
           '#title' => $this->t('Embedded Paragraphs'),
           '#type' => 'textfield',
-          '#autocomplete_route_name' => 'paragraphs_entity_embed.autocomplete'
+          '#autocomplete_route_name' => 'paragraphs_entity_embed.autocomplete',
         ],
         'button' => [
           '#name' => 'use_existing_paragraphs_entity',
@@ -275,7 +275,7 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
     }
 
     $embedded_paragraphs = $this->entityTypeManager->getStorage('embedded_paragraphs')
-     ->loadByProperties(['uuid' => $form_state->getValue('existing')['autocomplete']]);
+      ->loadByProperties(['uuid' => $form_state->getValue('existing')['autocomplete']]);
     $embedded_paragraphs = current($embedded_paragraphs);
     return (new AjaxResponse())
       ->addCommand(

@@ -92,25 +92,25 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
    */
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
-     
+
     if (strpos($text, 'data-paragraph-id') !== FALSE) {
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
       $entity_type = 'embedded_paragraphs';
-      
+
       foreach ($xpath->query('//drupal-paragraph[@data-paragraph-id]') as $node) {
-           /** @var \DOMElement $node */
+        /** @var \DOMElement $node */
         $entity = NULL;
         $entity_output = '';
-        
+
         /** @var \DOMElement $node */
         try {
-                    // Load the entity either by UUID (preferred) or ID.
+          // Load the entity either by UUID (preferred) or ID.
           $id = NULL;
           $entity = NULL;
           $id = $node->getAttribute('data-paragraph-id');
           $embed_entity = $this->entityTypeManager->getStorage($entity_type)
-              ->loadByProperties(['uuid' => $id]);
+            ->loadByProperties(['uuid' => $id]);
           $entity = current($embed_entity);
           if ($entity) {
             // Protect ourselves from recursive rendering.
@@ -123,7 +123,7 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
             $context += ['data-langcode' => $langcode];
             $context['data-view-mode'] = 'embed';
             $build = $this->builder->buildEntityEmbed($entity, $context);
-            
+
             // We need to render the embedded entity:
             // - without replacing placeholders, so that the placeholders are
             //   only replaced at the last possible moment. Hence we cannot use
@@ -133,7 +133,6 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
             //   when filtering text makes it onto the FilterProcessResult
             //   object that they return ($result). To prevent that bubbling, we
             //   must wrap the call to render() in a render context.
-            
             $entity_output = $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$build) {
               return $this->renderer->render($build);
             });
@@ -157,9 +156,13 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
 
     return $result;
   }
+
+  /**
+   *
+   */
   public function buildParagraphEmbed($node) {
-    
-     $build = [
+
+    $build = [
       '#theme_wrappers' => ['views_entity_embed_container'],
       '#attributes' => ['class' => ['views-entity-embed']],
       '#view' => $view,
@@ -172,6 +175,7 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
 
     ];
   }
+
   /**
    * {@inheritdoc}
    */

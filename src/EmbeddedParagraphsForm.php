@@ -17,23 +17,23 @@ class EmbeddedParagraphsForm extends ContentEntityForm {
    * @var \Drupal\paragraphs_entity_embed\EmbeddedParagraphs
    */
   protected $entity;
-  
-   /**
+
+  /**
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
-  
+
     $form = parent::form($form, $form_state);
     $embed_paragraph = $this->entity;
-      
+
     if ($this->operation == 'edit') {
       $form['#title'] = $this->t('Edit embed paragraph %label', ['%label' => $embed_paragraph->label()]);
     }
     $form['#attributes']['class'][0] = 'embed-paragraph-' . Html::getClass($embed_paragraph->bundle()) . '-form';
-    
+
     return $form;
   }
- 
+
   /**
    * {@inheritdoc}
    */

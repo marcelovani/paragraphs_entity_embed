@@ -22,19 +22,22 @@ use Drupal\Core\Entity\ContentEntityInterface;
  *   },
  *   field_ui_base_route = "entity.embedded_paragraphs.edit_form",
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder", 
+ *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
  *     "form" = {
  *       "default" = "Drupal\paragraphs_entity_embed\EmbeddedParagraphsForm",
  *       "add" = "Drupal\paragraphs_entity_embed\EmbeddedParagraphsForm",
  *       "edit" = "Drupal\paragraphs_entity_embed\EmbeddedParagraphsForm",
  *     },
- *     "access" = "Drupal\paragraphs_entity_embed\EmbeddedParagraphsAccessControlHandler", 
+ *     "access" = "Drupal\paragraphs_entity_embed\EmbeddedParagraphsAccessControlHandler",
  *   },
  * )
  */
 class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInterface {
 
+  /**
+   *
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 
     // Standard field, used as unique if primary index.
@@ -55,9 +58,9 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
       ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setDisplayOptions('form', [
-      'type' => 'string_textfield',
-      'weight' => -5,
-    ]);
+        'type' => 'string_textfield',
+        'weight' => -5,
+      ]);
 
     $fields['paragraph'] = BaseFieldDefinition::create('entity_reference_revisions')
       ->setLabel(t('Paragraph'))
@@ -70,13 +73,12 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
         'type' => 'entity_reference_embed_paragraphs',
       ])
       ->setDisplayOptions('view', [
-      'label' => 'hidden',
-      'type' => 'entity_reference_revisions_entity_view',
-      'settings' => [
-        'view_mode' => 'embed',
-      ]
-    ]);
-
+        'label' => 'hidden',
+        'type' => 'entity_reference_revisions_entity_view',
+        'settings' => [
+          'view_mode' => 'embed',
+        ],
+      ]);
 
     return $fields;
   }
@@ -142,5 +144,3 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
   }
 
 }
-
-?>

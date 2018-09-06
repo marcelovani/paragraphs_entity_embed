@@ -59,7 +59,9 @@ class ParagraphsEntityEmbedController extends ControllerBase {
    *   A form array as expected by drupal_render().
    */
   public function addForm(
-  Request $request, EditorInterface $editor = NULL, EmbedButtonInterface $embed_button = NULL) {
+  Request $request,
+  EditorInterface $editor = NULL,
+  EmbedButtonInterface $embed_button = NULL) {
     if (($return_html = $this->controllerCalledOutsideIframe($request))) {
       return $return_html;
     }
@@ -72,7 +74,7 @@ class ParagraphsEntityEmbedController extends ControllerBase {
     ];
 
     return $this->entityFormBuilder()
-        ->getForm($embedded_paragraphs, 'paragraphs_entity_embed', $form_state);
+      ->getForm($embedded_paragraphs, 'paragraphs_entity_embed', $form_state);
   }
 
   /**
@@ -91,7 +93,10 @@ class ParagraphsEntityEmbedController extends ControllerBase {
    *   A form array as expected by drupal_render().
    */
   public function editForm(
-  $embedded_paragraphs_uuid, Request $request, EditorInterface $editor = NULL, EmbedButtonInterface $embed_button = NULL) {
+  $embedded_paragraphs_uuid,
+  Request $request,
+  EditorInterface $editor = NULL,
+  EmbedButtonInterface $embed_button = NULL) {
     if (($return_html = $this->controllerCalledOutsideIframe($request))) {
       return $return_html;
     }
@@ -106,7 +111,7 @@ class ParagraphsEntityEmbedController extends ControllerBase {
     ];
 
     return $this->entityFormBuilder()
-        ->getForm($embedded_paragraph, 'paragraphs_entity_embed', $form_state);
+      ->getForm($embedded_paragraph, 'paragraphs_entity_embed', $form_state);
   }
 
   /**
