@@ -40,7 +40,8 @@ class EmbedParagraphsWidget extends ParagraphsWidget {
    *   returned, defaults to the current field.
    *
    * @return array
-   *   A list of arrays keyed by the paragraph type machine name with the following properties.
+   *   A list of arrays keyed by the paragraph type machine name with the
+   *   following properties.
    *     - label: The label of the paragraph type.
    *     - weight: The weight of the paragraph type.
    */

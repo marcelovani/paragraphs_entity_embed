@@ -59,8 +59,8 @@ class EmbeddedParagraphsForm extends ContentEntityForm {
       $form_state->set('id', $embed_paragraph->id());
     }
     else {
-      // In the unlikely case something went wrong on save, the embed paragraph will be
-      // rebuilt and embed paragraph redisplayed.
+      // In the unlikely case something went wrong on save, the embed
+      // paragraph will be rebuilt and embed paragraph redisplayed.
       drupal_set_message($this->t('Embeded Paragraph entity could not be saved.'), 'error');
       $form_state->setRebuild();
     }

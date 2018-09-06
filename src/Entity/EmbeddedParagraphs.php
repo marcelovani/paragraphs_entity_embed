@@ -36,7 +36,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInterface {
 
   /**
-   *
+   * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 

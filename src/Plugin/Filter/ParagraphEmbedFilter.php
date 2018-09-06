@@ -158,25 +158,6 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
   }
 
   /**
-   *
-   */
-  public function buildParagraphEmbed($node) {
-
-    $build = [
-      '#theme_wrappers' => ['views_entity_embed_container'],
-      '#attributes' => ['class' => ['views-entity-embed']],
-      '#view' => $view,
-      '#context' => [
-        'data-view-name' => $view_name,
-        'data-view-display' => $view_display,
-        'data-override-title' => $view_attr['override_title'],
-        'data-title' => $view_attr['title'],
-      ],
-
-    ];
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function tips($long = FALSE) {
