@@ -42,16 +42,16 @@ class EmbeddedParagraphsForm extends ContentEntityForm {
 
     $insert = $embed_paragraph->isNew();
     $embed_paragraph->save();
-    $context = ['@type' => $embed_paragraph->getEntityType(), '%uuid' => $embed_paragraph->uuid()];
+
     $logger = $this->logger('paragraphs_entity_embed');
-    $t_args = ['@type' => $embed_paragraph->uuid(), '%info' => $embed_paragraph->uuid()];
+    $t_args = ['@type' => $embed_paragraph->getEntityType()->getLabel(), '%info' => $embed_paragraph->uuid()];
 
     if ($insert) {
-      $logger->notice('@type: added %info.', $context);
+      $logger->notice('@type: added %info.', $t_args);
       drupal_set_message($this->t('@type %info has been created.', $t_args));
     }
     else {
-      $logger->notice('@type: updated %info.', $context);
+      $logger->notice('@type: updated %info.', $t_args);
       drupal_set_message($this->t('@type %info has been updated.', $t_args));
     }
     if ($embed_paragraph->id()) {
