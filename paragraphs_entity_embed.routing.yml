@@ -2,7 +2,7 @@ paragraphs_entity_embed.dialog:
   path: '/paragraph-embed/dialog/{editor}/{embed_button}'
   defaults:
     _controller: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::addForm'
-    _title: 'Embed Paragraph'
+    _title_callback: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::getAddTitle'
   requirements:
     _embed_button_editor_access: 'TRUE'
   options:
@@ -12,7 +12,7 @@ paragraphs_entity_embed_edit.dialog:
   path: '/paragraph-embed/dialog/{editor}/{embed_button}/{embedded_paragraphs_uuid}'
   defaults:
     _controller: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::editForm'
-    _title: 'Embed Paragraph Edit'
+    _title_callback: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::getEditTitle'
   requirements:
     _embed_button_editor_access: 'TRUE'
   options:

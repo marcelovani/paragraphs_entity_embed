@@ -52,7 +52,6 @@
           var embed_button_id = data.id ? data.id : existingValues['data-embed-button'];
 
           var dialogSettings = {
-            title: existingElement ? Drupal.t('Edit paragraph') : Drupal.t('Insert paragraph'),
             dialogClass: 'paragraph-select-dialog',
             resizable: false,
             minWidth: 800
@@ -148,17 +147,25 @@
 
       // Register context menu option for editing widget.
       if (editor.contextMenu) {
-        editor.addMenuGroup('drupalparagraph');
-        editor.addMenuItem('drupalparagraph', {
-          label: Drupal.t('Edit embedded Paragraph'),
-          command: 'editdrupalparagraph',
-          group: 'drupalparagraph'
-        });
+        for (var key in editor.config.DrupalParagraph_buttons) {
+          var button = editor.config.DrupalParagraph_buttons[key];
+
+          editor.addMenuGroup('drupalparagraph');
+
+          editor.addMenuItem('drupalparagraph_' + button.id, {
+            label: Drupal.t('Edit ') + button.label,
+            icon: button.image,
+            command: 'editdrupalparagraph',
+            group: 'drupalparagraph'
+          });
+        }
 
         editor.contextMenu.addListener(function (element) {
           if (isEmbeddedParagraphWidget(editor, element)) {
-            console.log(CKEDITOR.TRISTATE_OFF);
-            return {drupalparagraph: CKEDITOR.TRISTATE_OFF};
+            var button_id = element.getFirst().getAttribute('data-embed-button');
+            var returnData = {};
+            returnData['drupalparagraph_' + button_id] = CKEDITOR.TRISTATE_OFF;
+            return returnData;
           }
         });
       }

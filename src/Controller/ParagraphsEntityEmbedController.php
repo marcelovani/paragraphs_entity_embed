@@ -182,4 +182,30 @@ class ParagraphsEntityEmbedController extends ControllerBase {
     return new JsonResponse($results);
   }
 
+  /**
+   * Returns a page title.
+   *
+   * @param \Drupal\embed\EmbedButtonInterface|null $embed_button
+   *   The embed button.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   Page title.
+   */
+  public function getEditTitle(EmbedButtonInterface $embed_button = NULL) {
+    return  $this->t('Edit %title', ['%title' => $embed_button->label()]);
+  }
+
+  /**
+   * Returns a page title.
+   *
+   * @param \Drupal\embed\EmbedButtonInterface|null $embed_button
+   *   The embed button.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   Page title.
+   */
+  public function getAddTitle(EmbedButtonInterface $embed_button = NULL) {
+    return  $this->t('Select %title to Embed', ['%title' => $embed_button->label()]);
+  }
+
 }
