@@ -34,4 +34,13 @@ class DrupalParagraph extends EmbedCKEditorPluginBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibraries(Editor $editor) {
+    $libraries = parent::getLibraries($editor);
+    $libraries[] = 'paragraphs_entity_embed/dialog';
+    return $libraries;
+  }
+
 }
