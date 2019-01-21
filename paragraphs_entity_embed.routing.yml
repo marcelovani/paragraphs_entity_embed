@@ -24,3 +24,10 @@ paragraphs_entity_embed.autocomplete:
     _controller: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::handleAutocomplete'
   requirements:
     _access: 'TRUE'
+
+entity.embedded_paragraphs.edit_form:
+  path: '/admin/structure/paragraphs_entity_embed/{paragraphs_type}'
+  defaults:
+    _entity_form: 'Drupal\paragraphs_entity_embed\EmbeddedParagraphsForm'
+  requirements:
+    _permission: 'administer paragraphs entity embed'
