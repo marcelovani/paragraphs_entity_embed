@@ -52,16 +52,6 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
       ->setDescription(t('The UUID of the EmbeddedParagraphs entity.'))
       ->setReadOnly(TRUE);
 
-    $fields['label'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Label'))
-      ->setDescription(t('The name of the paragraph entity embed.'))
-      ->setRequired(TRUE)
-      ->setSetting('max_length', 255)
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -5,
-      ]);
-
     $fields['paragraph'] = BaseFieldDefinition::create('entity_reference_revisions')
       ->setLabel(t('Paragraph'))
       ->setSetting('target_type', 'paragraph')
@@ -73,7 +63,6 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
         'type' => 'entity_reference_embed_paragraphs',
       ])
       ->setDisplayOptions('view', [
-        'label' => 'hidden',
         'type' => 'entity_reference_revisions_entity_view',
         'settings' => [
           'view_mode' => 'embed',
@@ -104,14 +93,7 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
     return $this->get('paragraph')->referencedEntities();
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getLabel() {
-    return $this->get('label')->value;
-  }
-
-  /**
+   /**
    * {@inheritdoc}
    */
   public function setId($id) {
@@ -132,14 +114,6 @@ class EmbeddedParagraphs extends ContentEntityBase implements ContentEntityInter
    */
   public function setParagraph($paragraph) {
     $this->set('paragraph', $paragraph);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setLabel($label) {
-    $this->set('label', $label);
     return $this;
   }
 

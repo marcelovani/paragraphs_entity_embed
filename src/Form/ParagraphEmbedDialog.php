@@ -66,10 +66,6 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
       '#type' => 'value',
       '#value' => $embed_button->id(),
     ];
-    $form['attributes']['data-entity-label'] = [
-      '#type' => 'value',
-      '#value' => $embed_button->label(),
-    ];
 
     $form['#attached']['library'][] = 'editor/drupal.editor.dialog';
     $form['#attached']['library'][] = 'paragraphs_entity_embed/dialog';
@@ -87,9 +83,6 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
     ) {
       // Raise a flag that method needs to be selected.
       $form_state->set('insert_method_choise', self::INSERT_METHOD_PROMPTED);
-
-      // Add an after build callback for hiding the action links.
-      $form['#after_build'][] = '::afterBuild';
     }
     return $form;
   }
@@ -156,23 +149,4 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
         )
       );
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function afterBuild(array $element, FormStateInterface $form_state) {
-    $element = parent::afterBuild($element, $form_state);
-
-    // If we are showing the insert new paragraph form and we still haven't
-    // chosen the insert method we hide the default form action buttons.
-    if (
-      $this->entity->isNew() &&
-      $form_state->get('insert_method_choise') === self::INSERT_METHOD_PROMPTED
-    ) {
-     // $element['actions']['#access'] = FALSE;
-    }
-
-    return $element;
-  }
-
 }

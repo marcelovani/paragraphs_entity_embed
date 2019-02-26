@@ -17,10 +17,3 @@ paragraphs_entity_embed_edit.dialog:
     _embed_button_editor_access: 'TRUE'
   options:
     _admin_route: TRUE
-    
-paragraphs_entity_embed.autocomplete:
-  path: '/paragraphs_entity_embed/autocomplete'
-  defaults:
-    _controller: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::handleAutocomplete'
-  requirements:
-    _access: 'TRUE'

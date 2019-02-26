@@ -30,6 +30,7 @@ class ParagraphsEntityEmbedController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     $entity_manager = $container->get('entity.manager');
+    echo 1;
     return new static(
       $entity_manager->getStorage('embedded_paragraphs')
     );
@@ -149,37 +150,6 @@ class ParagraphsEntityEmbedController extends ControllerBase {
         '#attached' => ['library' => ['editor/drupal.editor.dialog']],
       ];
     }
-  }
-
-  /**
-   * Handler for autocomplete request.
-   */
-  public function handleAutocomplete(Request $request) {
-    $results = [];
-    // Get the typed string from the URL, if it exists.
-    if ($input = $request->query->get('q')) {
-      $typed_string = Tags::explode($input);
-      $typed_string = Unicode::strtolower(array_pop($typed_string));
-      try {
-        $query = db_select('embedded_paragraphs', 'ep');
-        $result = $query->fields('ep', ['uuid', 'label'])
-          ->condition('ep.label', '%' . $query->escapeLike($typed_string) . '%', 'LIKE')
-          ->orderBy('label')
-          ->execute()
-          ->fetchAll();
-      }
-      catch (Exception $e) {
-        var_dump($e->getMessage());
-      }
-      foreach ($result as $item) {
-        $results[] = [
-          'value' => $item->uuid,
-          'label' => $item->label,
-        ];
-      }
-    }
-
-    return new JsonResponse($results);
   }
 
   /**
