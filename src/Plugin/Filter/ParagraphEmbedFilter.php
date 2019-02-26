@@ -96,7 +96,7 @@ class ParagraphEmbedFilter extends FilterBase implements ContainerFactoryPluginI
     if (strpos($text, 'data-paragraph-id') !== FALSE) {
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
-      $entity_type = 'embedded_paragraphs';
+      $entity_type = 'paragraph';
 
       foreach ($xpath->query('//drupal-paragraph[@data-paragraph-id]') as $node) {
         /** @var \DOMElement $node */
