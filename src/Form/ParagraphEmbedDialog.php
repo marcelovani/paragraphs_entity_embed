@@ -88,69 +88,9 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
       // Raise a flag that method needs to be selected.
       $form_state->set('insert_method_choise', self::INSERT_METHOD_PROMPTED);
 
-      // Hide all the default form fields.
-      $hidden_fields = [
-        'paragraph',
-        'label',
-      ];
-      foreach ($hidden_fields as $hidden_field) {
-        if (isset($form[$hidden_field])) {
-          $form[$hidden_field]['#access'] = FALSE;
-        }
-      }
       // Add an after build callback for hiding the action links.
       $form['#after_build'][] = '::afterBuild';
-      $form['new'] = [
-        '#type' => 'details',
-        '#title' => t('Create new'),
-        '#open' => TRUE,
-        '#tree' => TRUE,
-        'button' => [
-          '#name' => 'create_new_paragraphs_entity_embed',
-          '#type' => 'button',
-          '#value' => $this->t('Continue'),
-          '#ajax' => [
-            'callback' => '::returnInsertForm',
-            'event' => 'click',
-            'wrapper' => 'paragraphs-entity-embed-type-form-wrapper',
-            'progress' => [
-              'type' => 'throbber',
-              'message' => '',
-            ],
-          ],
-        ],
-      ];
-      $form['existing_or_new'] = [
-        '#markup' => $this->t('- OR -'),
-        '#type' => 'item',
-      ];
-      $form['existing'] = [
-        '#type' => 'details',
-        '#title' => t('Select existing'),
-        '#open' => TRUE,
-        '#tree' => TRUE,
-        'autocomplete' => [
-          '#title' => $this->t('Embedded Paragraphs'),
-          '#type' => 'textfield',
-          '#autocomplete_route_name' => 'paragraphs_entity_embed.autocomplete',
-        ],
-        'button' => [
-          '#name' => 'use_existing_paragraphs_entity',
-          '#type' => 'button',
-          '#value' => $this->t('Place'),
-          '#ajax' => [
-            'callback' => '::returnExistingParagraph',
-            'event' => 'click',
-            'wrapper' => 'paragraphs-entity-embed-type-form-wrapper',
-            'progress' => [
-              'type' => 'throbber',
-              'message' => '',
-            ],
-          ],
-        ],
-      ];
     }
-
     return $form;
   }
 
@@ -229,65 +169,10 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
       $this->entity->isNew() &&
       $form_state->get('insert_method_choise') === self::INSERT_METHOD_PROMPTED
     ) {
-      $element['actions']['#access'] = FALSE;
+     // $element['actions']['#access'] = FALSE;
     }
 
     return $element;
-  }
-
-  /**
-   * Ajax callback when selecting to create a new paragraph.
-   *
-   * @param array $form
-   *   The form element.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state object.
-   *
-   * @return array
-   *   The form.
-   */
-  public function returnInsertForm(
-    array &$form,
-    FormStateInterface $form_state) {
-    return $form;
-  }
-
-  /**
-   * Ajax callback when selecting to use an existing paragraph.
-   *
-   * Return ajax command for inserting the existing paragraph into the html.
-   *
-   * @param array $form
-   *   The form element.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state object.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse|array
-   *   Ajax response with command for inserting the existing paragraph into the
-   *   html or the form renderable on error.
-   */
-  public function returnExistingParagraph(
-    array &$form,
-    FormStateInterface $form_state) {
-    // If there are errors return the form.
-    if ($form_state->getErrors()) {
-      return $form;
-    }
-
-    $embedded_paragraphs = $this->entityTypeManager->getStorage('embedded_paragraphs')
-      ->loadByProperties(['uuid' => $form_state->getValue('existing')['autocomplete']]);
-    $embedded_paragraphs = current($embedded_paragraphs);
-    return (new AjaxResponse())
-      ->addCommand(
-        new InvokeCommand(
-          NULL,
-          'ParagraphEditorDialogSaveAndCloseModalDialog',
-          [
-            $form_state->getValues()['attributes'] +
-            ['data-paragraph-id' => $embedded_paragraphs->getUuid()],
-          ]
-        )
-      );
   }
 
 }
