@@ -44,7 +44,6 @@ class ParagraphsEntityEmbedController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    echo 1;
     return new static(
       $container->get('entity.manager')->getStorage('embedded_paragraphs')
     );
@@ -54,7 +53,6 @@ class ParagraphsEntityEmbedController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function Xcreate(ContainerInterface $container) {
-    echo 1;
     return new static(
       $container->get('entity.manager'),
       $container->get('entity_type.manager'),
@@ -142,12 +140,10 @@ class ParagraphsEntityEmbedController extends ControllerBase {
 //    $form = $this->entityFormBuilder()
 //      ->getForm($par, 'paragraphs_entity_embed', $form_state);
 
-    echo 2;
     $par = $this->storage->create([]);
-    echo 3;
     $form = $this->entityFormBuilder()
       ->getForm($par, 'paragraphs_entity_embed', $form_state);
-    echo 4;
+
     return $form;
 
 //    return $this->entityFormBuilder()
