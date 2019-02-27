@@ -68,7 +68,7 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
     ];
 
     $form['#attached']['library'][] = 'editor/drupal.editor.dialog';
-    $form['#attached']['library'][] = 'paragraphs_entity_embed/dialog';
+    //$form['#attached']['library'][] = 'paragraphs_entity_embed/dialog';
     // Wrap our form so that our submit callback can re-render the form.
     $form['#prefix'] = '<div id="paragraphs-entity-embed-type-form-wrapper">';
     $form['#suffix'] = '</div>';

@@ -5,6 +5,9 @@ namespace Drupal\paragraphs_entity_embed\Controller;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\editor\EditorInterface;
 use Drupal\embed\EmbedButtonInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,31 +22,74 @@ use Drupal\Component\Utility\Unicode;
 class ParagraphsEntityEmbedController extends ControllerBase {
 
   /**
-   * The embedded paragraphs storage.
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * @var \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   */
+  protected $entityManager;
+
+  /**
+   * The entity storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $embeddedParagraphsStorage;
+  protected $storage;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity.manager');
     echo 1;
     return new static(
-      $entity_manager->getStorage('embedded_paragraphs')
+      $container->get('entity.manager')->getStorage('embedded_paragraphs')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function Xcreate(ContainerInterface $container) {
+    echo 1;
+    return new static(
+      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
+      $container->get('entity.manager')->getStorage('embedded_paragraphs')
     );
   }
 
   /**
    * Constructs a EmbeddedParagraphs object.
    *
-   * @param \Drupal\Core\Entity\EntityStorageInterface $embedded_paragraphs_storage
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   The custom embedded paragraphs storage.
    */
-  public function __construct(EntityStorageInterface $embedded_paragraphs_storage) {
-    $this->embeddedParagraphsStorage = $embedded_paragraphs_storage;
+  public function __construct(EntityStorageInterface $storage) {
+    $this->storage = $storage;
+  }
+
+  /**
+   * Constructs a EmbeddedParagraphs object.
+   *
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The custom embedded paragraphs storage.
+   */
+  public function X__construct(EntityManagerInterface $entity_manager, EntityTypeManagerInterface $entity_type_manager, EntityStorageInterface $storage) {
+    $this->entityManager = $entity_manager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->storage = $storage;
   }
 
   /**
@@ -67,15 +113,45 @@ class ParagraphsEntityEmbedController extends ControllerBase {
       return $return_html;
     }
 
-    $embedded_paragraphs = $this->embeddedParagraphsStorage->create([]);
-
     $form_state['editorParams'] = [
       'editor' => $editor,
       'embed_button' => $embed_button,
     ];
+//    echo 'a';
+//    $paragraphs = $this->entityTypeManager->getStorage('paragraph');
+//    echo 'b';
 
-    return $this->entityFormBuilder()
-      ->getForm($embedded_paragraphs, 'paragraphs_entity_embed', $form_state);
+//    $form = $this->entityFormBuilder()
+//      ->getForm($paragraphs, 'paragraph', $form_state);
+//    echo 'c';
+//    return $form;
+
+//    $node = $this->entityManager()->getStorage('node')->create(array(
+//      'type' => 'article',
+//    ));
+//    $form = $this->entityFormBuilder()->getForm($node);
+
+//    $par = $this->entityManager()->getStorage('paragraph')->create(array(
+//      'type' => 'image',
+//    ));
+//    $form = $this->entityFormBuilder()->getForm($par);
+//    return $form;
+
+
+//    $par = $this->entityManager->getStorage('embedded_paragraphs');
+//    $form = $this->entityFormBuilder()
+//      ->getForm($par, 'paragraphs_entity_embed', $form_state);
+
+    echo 2;
+    $par = $this->storage->create([]);
+    echo 3;
+    $form = $this->entityFormBuilder()
+      ->getForm($par, 'paragraphs_entity_embed', $form_state);
+    echo 4;
+    return $form;
+
+//    return $this->entityFormBuilder()
+//      ->getForm($paragraphs, 'paragraphs_entity_embed', $form_state);
   }
 
   /**
