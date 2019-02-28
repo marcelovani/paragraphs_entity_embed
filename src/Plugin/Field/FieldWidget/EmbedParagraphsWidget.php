@@ -89,8 +89,8 @@ class EmbedParagraphsWidget extends ParagraphsWidget {
   public function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
     // Set Embed button.
     $storage = $form_state->getStorage();
-    $this->embedButton = isset($storage['editorParams']['embed_button']) ?
-      $storage['editorParams']['embed_button'] : [];
+    $this->embedButton = isset($storage['paragraph_embed_dialog']['embed_button']) ?
+      $storage['paragraph_embed_dialog']['embed_button'] : [];
     return parent::formMultipleElements($items, $form, $form_state);
   }
 

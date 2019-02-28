@@ -72,7 +72,8 @@
             }
           };
 
-          var url = Drupal.url('paragraph-embed/dialog/' + editor.config.drupal.format + '/' + embed_button_id);
+          // @todo get entity_type_id and field_id to pass here
+          var url = Drupal.url('paragraph-embed/dialog/' + editor.config.drupal.format + '/test/field_test/' + embed_button_id);
           if ('data-paragraph-id' in existingValues) {
             url = url + '/' + existingValues['data-paragraph-id']
           }

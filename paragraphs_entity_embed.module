@@ -15,6 +15,9 @@ function paragraphs_entity_embed_entity_type_build(array &$entity_types) {
   if (isset($entity_types['embedded_paragraphs'])) {
     $entity_types['embedded_paragraphs']->setFormClass('paragraphs_entity_embed', 'Drupal\paragraphs_entity_embed\Form\ParagraphEmbedDialog');
   }
+  if (isset($entity_types['node'])) {
+    $entity_types['node']->setFormClass('paragraphs_entity_embed', 'Drupal\paragraphs_entity_embed\Form\Node');
+  }
 }
 
 /**
@@ -43,5 +46,40 @@ function paragraphs_entity_embed_preprocess_html(&$variables) {
         }
       }
     }
+//    unset($variables['page_top']);
+//    unset($variables['page_bottom']);
+//    unset($variables['head_title']);
+//    unset($variables['head_title_array']);
+//    unset($variables['user']);
+//    unset($variables['directory']);
+     unset($variables['page']['header']);
+     unset($variables['page']['content']['#sorted']);
+//    unset($variables['page']['content']['thunder_admin_local_actions']);
+//    unset($variables['page']['content']['thunder_admin_local_actions']);
+    unset($variables['page']['pre_content']);
+    unset($variables['page']['highlighted']);
+//    unset($variables['html']);
+//    unset($variables['attached']);
+//    unset($variables['html_attributes']);
+    unset($variables['page']['content']['thunder_admin_content']['#weight']);
+    unset($variables['page']['#attached']['html_head']);
+    unset($variables['page']['#attached']['drupalSettings']);
+//    unset($variables['page']['content']['thunder_admin_content']['#configuration']);
+    //var_dump(recursive_array_search('chakalakabaka', $variables['page']));exit;
   }
+}
+
+function recursive_array_search($needle, $haystack, $currentKey = '') {
+  foreach($haystack as $key=>$value) {
+    if (is_array($value)) {
+      $nextKey = recursive_array_search($needle,$value, $currentKey . '[' . $key . ']');
+      if ($nextKey) {
+        return $nextKey;
+      }
+    }
+    else if($value==$needle) {
+      return is_numeric($key) ? $currentKey . '[' .$key . ']' : $currentKey . '["' .$key . '"]';
+    }
+  }
+  return false;
 }

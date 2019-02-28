@@ -1,5 +1,5 @@
 paragraphs_entity_embed.dialog:
-  path: '/paragraph-embed/dialog/{editor}/{embed_button}'
+  path: '/paragraph-embed/dialog/{editor}/{entity_type_id}/{field_id}/{embed_button}'
   defaults:
     _controller: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::addForm'
     _title_callback: '\Drupal\paragraphs_entity_embed\Controller\ParagraphsEntityEmbedController::getAddTitle'

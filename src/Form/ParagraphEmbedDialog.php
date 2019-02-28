@@ -53,8 +53,8 @@ class ParagraphEmbedDialog extends EmbeddedParagraphsForm {
     $form = parent::form($form, $form_state);
 
     $storage = $form_state->getStorage();
-    $editor = $storage['editorParams']['editor'];
-    $embed_button = $storage['editorParams']['embed_button'];
+    $editor = $storage['paragraph_embed_dialog']['editor'];
+    $embed_button = $storage['paragraph_embed_dialog']['embed_button'];
 
     $form['is_new'] = [
       '#type' => 'value',
